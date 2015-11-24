@@ -1,23 +1,32 @@
 <div class="{{classes.columnsDropdownWrapper}}">
-  <div class="{{classes.columnsDropdownButtonWrapper}}">
-    <button class="{{classes.buttonDefault}} dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
-      {{messages.columns-title}} <span class="{{icons.caret}}"></span>
-    </button>
-    <ul class="{{classes.columnsDropdown}}">
-      <li><a {{action "showAllColumns" column bubbles=false}} href="#">{{messages.columns-showAll}}</a></li>
-      <li><a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a></li>
-      <li><a {{action "restoreDefaultVisibility" column bubbles=false}} href="#">{{messages.columns-restoreDefaults}}</a></li>
-      <li class="divider"></li>
-      {{#each processedColumns as |column|}}
-        {{#if column.mayBeHidden}}
-          <li>
+  {{#paper-menu as |menu|}}
+    {{#paper-button target=menu action="toggleMenu" icon-button=true}}
+        <div class="md-menu-origin">{{paper-icon icon="view-column"}}</div>
+    {{/paper-button}}
+  {{else}}
+    {{#paper-menu-item}}
+        <a {{action "showAllColumns" column bubbles=false}} href="#">{{messages.columns-showAll}}</a>
+    {{/paper-menu-item}}
+    {{#paper-menu-item}}
+        <a {{action "hideAllColumns" column bubbles=false}} href="#">{{messages.columns-hideAll}}</a>
+    {{/paper-menu-item}}
+    {{#paper-menu-item}}
+        <a {{action "restoreDefaultVisibility" column bubbles=false}}
+                href="#">{{messages.columns-restoreDefaults}}</a>
+    {{/paper-menu-item}}
+    {{#each processedColumns as |column|}}
+      {{#if column.mayBeHidden }}
+        {{#paper-menu-item}}
             <a {{action "toggleHidden" column bubbles=false}} href="#">
-                <span class="{{if column.isVisible icons.column-visible icons.column-hidden}}"></span> {{column.title}}
+              {{#if column.isVisible}}
+                {{paper-icon icon="check-box"}}
+              {{else}}
+                {{paper-icon icon="check-box-outline-blank"}}
+              {{/if}}
+              {{column.title}}
             </a>
-          </li>
-        {{/if}}
-      {{/each}}
-    </ul>
-  </div>
+        {{/paper-menu-item}}
+      {{/if}}
+    {{/each}}
+  {{/paper-menu}}
 </div>

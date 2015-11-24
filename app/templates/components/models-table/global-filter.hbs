@@ -1,7 +1,5 @@
 <div class="{{classes.globalFilterWrapper}}">
-  <form class="form-inline globalSearch" action="">
-    <div class="form-group">
-      <label>{{messages.searchLabel}}</label> {{input type="text" value=filterString class="form-control filterString"}}
-    </div>
-  </form>
+    <form class="form-inline globalSearch" action="">
+      {{paper-input label=messages.searchLabel value=filterString}}
+    </form>
 </div>
